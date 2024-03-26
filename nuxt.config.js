@@ -4,6 +4,10 @@ export default defineNuxtConfig({
     devServer: {
         host: '0.0.0.0'
     },
+    server:{
+        host: '0.0.0.0',
+        port:3005
+    },
     css: [
         '~/assets/styles/reset.scss'
     ],
