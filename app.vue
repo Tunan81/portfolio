@@ -123,6 +123,7 @@
         </template>
       </q-banner>
     </div>
+    <q-badge color="red" />
   </div>
 </template>
 <script setup>
