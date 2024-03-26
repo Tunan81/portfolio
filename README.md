@@ -1,6 +1,7 @@
 # 个人博客主页 Nuxt3
 
 #### 介绍
+
 ✨2024最新个人博客主页基于 Vue3、Nuxt3、Javascript、Pinia搭建 。可扩展公司官网、产品展示、在线简历...
 
 #### 环境
@@ -28,26 +29,11 @@ npm create vite@latest
 
 ```
 
+#### 相关资源
 
-#### 使用说明
-测试
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. [Vue3](https://cn.vuejs.org/guide/introduction.html)
+2. [Nuxt3](https://nuxt.com.cn/docs/getting-started/installation)
+3. [Pinia](https://pinia.vuejs.org/zh/introduction.html)
+3. [Vite](https://cn.vitejs.dev/guide/)
+4. [Quasar UI](https://www.quasar-cn.cn/vue-components/ajax-bar)
 
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
