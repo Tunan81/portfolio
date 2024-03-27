@@ -12,9 +12,11 @@ export default defineNuxtConfig({
             'defineStore' // 自动import { defineStore } from 'pinia'
         ]
     },
+
     modules: [
         // https://nuxt.com/modules/quasar
-        'nuxt-quasar-ui'
+        'nuxt-quasar-ui',
+        '@pinia/nuxt',
     ],
     quasar: {
         plugins: [

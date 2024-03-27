@@ -25,6 +25,8 @@ class HttpService {
             return new Promise(async (resolve, reject) => {
                 await useFetch(this.BASEURL + uri, {
                     method: 'GET',
+                    lazy: true,
+                    server: false, // 仅在客户端执行
                     query,
                     onRequest({request, options}) {
                         options.headers = options.headers || {};
@@ -54,6 +56,8 @@ class HttpService {
             return new Promise(async (resolve, reject) => {
                 await useFetch(this.BASEURL + uri, {
                     method: 'POST',
+                    lazy: true,
+                    server: false, // 仅在客户端执行
                     body,
                     onRequest({request, options}) {
                         options.headers = options.headers || {};

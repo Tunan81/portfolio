@@ -4,7 +4,7 @@ export const visitorsCreate = (data) => {
     return service.post('/v1/sys/visitors/create', data)
 }
 export const frontendsetups = (data) => {
-    return service.post('/v1/blog/frontendsetups/client/list', data)
+    return  service.post('/v1/blog/frontendsetups/client/list', data)
 }
 export const dictionariesList = (data) => {
     return service.post('/v1/sys/dictionaries/client/list', data)
