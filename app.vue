@@ -116,16 +116,13 @@
 import {blog_articlesList} from "./api/modules/api.blog_articles";
 const postList = ref([])
 
-blog_articlesList({}).then(res=>{
-  postList.value = res.data.result || []
-  console.log(res.data.result)
-})
+
 
 onMounted(()=>{
-
+  blog_articlesList({}).then(res=>{
+    postList.value = res.data.result || []
+  })
 })
-// page.value=data.data.value.data.result[0]
-// console.log(data.data.value.data.result[0])
 </script>
 <style lang="scss" scoped>
 .home {

@@ -8,12 +8,6 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview"
   },
-  "config": {
-    "nuxt": {
-      "host": "0.0.0.0",
-      "port": "3005"
-    }
-  },
   "dependencies": {
     "@quasar/extras": "^1.16.9",
     "nuxt": "^3.11.1",
