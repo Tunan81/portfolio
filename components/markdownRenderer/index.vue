@@ -1,5 +1,5 @@
 <template>
-    <div class="post-main-container" :class="{ 'sidebar-empty': !cata.menuData.length }">
+    <div class="post-main-container" >
         <div class="main-container">
             <div class="article-area">
                 <div class="markdown-body custom-markdown line-numbers" v-html="markdownContent"
@@ -19,11 +19,12 @@
                 </div>
             </div>
         </div>
-        <a-image :width="200" :style="{ display: 'none' }" :preview="{visible,onVisibleChange: setVisible}" :src="imagePreview" />
+<!--        <a-image :width="200" :style="{ display: 'none' }" :preview="{visible,onVisibleChange: setVisible}" :src="imagePreview" />-->
     </div>
 </template>
 
 <script setup>
+import Prism from 'prismjs'
 const visible = ref(false)
 const imagePreview = ref('')
 function setVisible(val) {

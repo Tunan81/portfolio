@@ -25,7 +25,7 @@
         </div>
       </div>
       <hr style="margin-bottom: 2rem">
-      <markdownRenderer :markdownContent="articleDetail.content" />
+      <LazyMarkdownRenderer :markdownContent="articleDetail.content" />
       <div class="content-footer">
         <div class="footer-l" title="博文标签" v-show="articleDetail.tags">
           # {{ articleDetail.tags }}

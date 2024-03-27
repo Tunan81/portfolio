@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!--    {{page.createdAt}}-->
-    <!--    <ZyIntro/>-->
+        <ZyIntro/>
     <!--    <section class="main-warp" id="about">
           <section class="banner" :style="{backgroundImage:`url(${setting.websiteInfo.mainBg})`}"
                    v-if="setting.layout.main">

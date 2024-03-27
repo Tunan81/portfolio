@@ -9,13 +9,18 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@pinia/nuxt": "^0.5.1",
     "@quasar/extras": "^1.16.9",
+    "emoji": "^0.3.2",
     "nuxt": "^3.11.1",
     "pinia": "^2.1.7",
+    "prismjs": "^1.29.0",
     "quasar": "^2.15.1",
     "sass": "^1.72.0",
+    "vite-plugin-prismjs": "^0.0.11",
     "vue": "^3.4.21",
+    "vue-lazyload": "^3.0.0",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
