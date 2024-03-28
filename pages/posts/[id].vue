@@ -1,34 +1,31 @@
-
 <template>
   <section class="zy-blog-detail">
     <PageHeader title="文章详情" subTitle="有趣的人记录有趣的事" disBgAnimate
                 current="文章详情">
       <template #action>
-<!--        <NuxtLink :to="`/articleList/${articleDetail.cid}`" :title="articleDetail.catename"-->
-<!--                  class="page-action color-555">{{ articleDetail.catename }}-->
-<!--        </NuxtLink>-->
-        <span> 博文列表/ </span>
+        <NuxtLink to="/blogs" title="博文列表"
+                  class="page-action color-555">博文列表
+        </NuxtLink>
+        <span>/ </span>
       </template>
     </PageHeader>
     <main class="contents-wrap">
       <div class="content-header">
         <h2 class="header-text">{{ articleDetail.title }}</h2>
         <div class="header-tip">
-          <div class="tip-item"><i class="iconfont icon-zuozhe tip-icon"></i>Sonder</div>
-          <div class="tip-item"><i class="iconfont icon-shijian tip-icon"></i>{{ articleDetail.create_time }}
+          <div class="tip-item"><i class="iconfont icon-zuozhe tip-icon"></i>ZHOUYI</div>
+          <div class="tip-item"><i class="iconfont icon-shijian tip-icon"></i>{{ articleDetail.createdAt }}
           </div>
-<!--          <div class="tip-item" v-if="wordNum"><i class="iconfont icon-qitawenjianjia tip-icon"></i>2000字-->
-<!--          </div>-->
-<!--          <div class="tip-item" v-if="readTime"><i-->
-<!--              class="iconfont icon-a-xingshizhexueshekebaogaohuishenpibiao tip-icon"></i>3分钟-->
-<!--          </div>-->
+          <!--          <div class="tip-item" v-if="wordNum"><i class="iconfont icon-qitawenjianjia tip-icon"></i>2000字-->
+          <!--          </div>-->
+          <!--          <div class="tip-item" v-if="readTime"><i-->
+          <!--              class="iconfont icon-a-xingshizhexueshekebaogaohuishenpibiao tip-icon"></i>3分钟-->
+          <!--          </div>-->
         </div>
-
-
-
       </div>
       <hr style="margin-bottom: 2rem">
-      <LazyMarkdownRenderer :markdownContent="articleDetail.content" />
+      <markdownRenderer :markdownContent="articleDetail.content"/>
+      <!--      <div v-html="$mdRenderer.render(articleDetail.content)"></div>-->
       <div class="content-footer">
         <div class="footer-l" title="博文标签" v-show="articleDetail.tags">
           # {{ articleDetail.tags }}
@@ -39,65 +36,65 @@
           </div>
         </div>
       </div>
-<!--      <section class="next-pre" v-if="prev || next">
-        <NuxtLink :class="{ 'w-full': !prev || !next }" class="np-item next" v-if="prev"
-                  :to="`/post/${prev.id}`" :title="prev.title">
-          <img class="page-img" v-lazy="prev.pic || defaultCover" :alt="prev.title">
-          <span class="text"> 上一篇 / {{ prev.title }}</span>
+      <section class="next-pre" v-if="prevArticle || nextArticle">
+        <NuxtLink :class="{ 'w-full': !prevArticle || !nextArticle }" class="np-item next" v-if="prevArticle"
+                  :to="`/posts/${prevArticle._id}`" :title="prevArticle.title">
+          <img class="page-img" :src="prevArticle.cover" :alt="prevArticle.title">
+          <span class="text"> 上一篇 / {{ prevArticle.title }}</span>
         </NuxtLink>
-        <NuxtLink :class="{ 'w-full': !prev || !next }" class="np-item pre" v-if="next" :to="`/post/${next.id}`"
-                  :title="next.title">
-          <img class="page-img" v-lazy="next.pic || defaultCover" :alt="next.title">
-          <span class="text"> 下一篇 / {{ next.title }}</span>
+        <NuxtLink :class="{ 'w-full': !prevArticle || !nextArticle }" class="np-item pre" v-if="nextArticle"
+                  :to="`/posts/${nextArticle._id}`"
+                  :title="nextArticle.title">
+          <img class="page-img" :src="nextArticle.cover" :alt="nextArticle.title">
+          <span class="text"> 下一篇 / {{ nextArticle.title }}</span>
         </NuxtLink>
-      </section>-->
-<!--      <section v-if="likeArticle?.length">
-        <h2 class="section-title">
-          🎯 相关文章
-          <span data-number="01"></span>
-        </h2>
-        <div class="related">
-          <ul>
-            <li v-for="item in likeArticle" :key="item.id">
-              <NuxtLink class="color-fff" :to="`/post/${item.id}`">{{ item.title }}</NuxtLink>
-            </li>
-          </ul>
-        </div>
-      </section>-->
-<!--      <section>
-        <div id="commentChecker"></div>
-        <h2 class="section-title">
-          🕵️‍♂️ 评论 ({{ commentData.count || 0 }})
-          <span data-number="02"></span>
-        </h2>
-        <div class="post-comment-form">
-          <LazyCommentForm :articleDetail="articleDetail" @onRefreshComment="onRefreshComment" />
-        </div>
-        <LazyCommentList :commentData="commentData" :articleDetail="articleDetail"
-                         @onRefreshComment="onRefreshComment" />
-      </section>-->
+      </section>
+      <!--      <section v-if="likeArticle?.length">
+              <h2 class="section-title">
+                🎯 相关文章
+                <span data-number="01"></span>
+              </h2>
+              <div class="related">
+                <ul>
+                  <li v-for="item in likeArticle" :key="item.id">
+                    <NuxtLink class="color-fff" :to="`/post/${item.id}`">{{ item.title }}</NuxtLink>
+                  </li>
+                </ul>
+              </div>
+            </section>-->
+      <!--      <section>
+              <div id="commentChecker"></div>
+              <h2 class="section-title">
+                🕵️‍♂️ 评论 ({{ commentData.count || 0 }})
+                <span data-number="02"></span>
+              </h2>
+              <div class="post-comment-form">
+                <LazyCommentForm :articleDetail="articleDetail" @onRefreshComment="onRefreshComment" />
+              </div>
+              <LazyCommentList :commentData="commentData" :articleDetail="articleDetail"
+                               @onRefreshComment="onRefreshComment" />
+            </section>-->
     </main>
   </section>
 </template>
 <script setup>
 import observeAndAnimate from '../../utils/util.viewportObserve'
 import {blog_articlesDetail} from "../../api/modules/api.blog_articles";
+
+const nuxtApp = useNuxtApp()
+
 /**
  * 文章详情
  */
 const route = useRoute()
-const articleDetail=ref({})
-blog_articlesDetail({_id:route.params.id}).then(res=>{
-  articleDetail.value=res.data.currentArticle
-  // pageArtcile.value=res.data.currentArticle
+const articleDetail = ref({})
+const nextArticle = ref({})
+const prevArticle = ref({})
+blog_articlesDetail({_id: route.params.id}).then(res => {
+  articleDetail.value = res.data.currentArticle
+  nextArticle.value = res.data.nextArticle
+  prevArticle.value = res.data.prevArticle
 })
-blog_articlesDetail()
-/**
- * 分页
- */
-// const prev = computed(() => articleDetail.value.pageArtcile.prev)
-// const next = computed(() => articleDetail.value.pageArtcile.next)
-//
 
 onMounted(() => {
 
