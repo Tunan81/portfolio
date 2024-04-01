@@ -30,7 +30,6 @@
     "prismjs": "^1.29.0",
     "quasar": "^2.15.1",
     "sass": "^1.72.0",
-    "vite-plugin-prismjs": "^0.0.11",
     "vue": "^3.4.21",
     "vue-lazyload": "^3.0.0",
     "vue-router": "^4.3.0"

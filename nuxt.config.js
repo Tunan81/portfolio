@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: {enabled: true},
+    router: {
+        scrollBehavior (to, from, savedPosition) {
+            return { x: 0, y: 0 }
+        }
+    },
     devServer: {
         host: '0.0.0.0',
     },
@@ -98,7 +103,8 @@ export default defineNuxtConfig({
             link: [
                 {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
                 {rel: 'stylesheet', href: '//at.alicdn.com/t/c/font_4163224_9rzy212m2bm.css'},
-                {rel: 'stylesheet', href: '//at.alicdn.com/t/c/font_4123035_h2ne3ntjejc.css'},
+                {rel: 'stylesheet', href: '//at.alicdn.com/t/c/font_4123035_zb3xw3awuc.css'},
+                {rel: 'stylesheet', href: '//at.alicdn.com/t/c/font_4123035_8otvf792h2w.css'},
             ]
         },
         pageTransition: { name: 'page', mode: 'out-in' },
