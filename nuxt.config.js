@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     modules: [
         // https://nuxt.com/modules/quasar
         'nuxt-quasar-ui',
+        '@ant-design-vue/nuxt',
         '@pinia/nuxt',
         '@pinia-plugin-persistedstate/nuxt',
     ],

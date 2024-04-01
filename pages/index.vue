@@ -110,21 +110,20 @@
                          :key="item._id"
                     > {{ item.title || '暂无通知' }}
                     </div>
-                    <a v-else dot-position="right" :dots="false" autoplay>
+                    <a-carousel v-else dot-position="right" :dots="false" autoplay>
                       <div class="notice-txt"
-                           @click="goToPage('/announcement')"
                            v-for="(item,index) in state.anouncementData"
                            :key="item._id"
                       > {{ item.title || '暂无通知' }}
                       </div>
-                    </a>
+                    </a-carousel>
                   </div>
-                  <div class="notice-his">查看所有<i
+                  <div class="notice-his" @click="goToPage('/announcement')">查看所有<i
                       class="iconfont icon-click"/></div>
                 </div>
               </section>
               <section class="brand-tips">
-<!--                <ZySectionHeader title="Tips" titleNum="01"/>-->
+                <ZySectionHeader title="Tips" titleNum="01"/>
                 <blockquote class="my-story">
                   <p> 无趣的人想过着有趣的生活。</p>
                   <p> 每一步都是奇迹，每一天都是新的起点。</p>
@@ -144,6 +143,97 @@
             </div>
           </div>
         </section>
+
+        <!--        关于我-->
+        <section class="about c-mt-40 " v-if="state.layout.aboutMe">
+          <ZySectionHeader title="About me" titleNum="02"/>
+          <section class="animate-me" :key="state.key" v-html="state.aboutMe"></section>
+        </section>
+
+        <!--        服务-->
+        <section class="about c-mt-40 ">
+          <ZySectionHeader title="Service" titleNum="03"/>
+          <ZySkillsPanel/>
+        </section>
+        <!--        精选博文-->
+        <section class="blog  c-mt-40 c-mb-40" id="blog" v-if="state.layout.blog">
+          <ZySectionHeader title="Featured Articles" titleNum="05"/>
+          <ZyArticleSection/>
+        </section>
+
+        <!--        最近评论-->
+        <ZyRecentComments/>
+
+
+        <!--        作品-->
+        <section class="works c-mt-40 c-mb-40" id="work" v-if="state.layout.works">
+          <ZySectionHeader title="My Complete Projects" titleNum="07"/>
+          <ZyWorksSection class="work-se c-mt-40" :dataList="state.portfoliosData"/>
+          <div class="work-box" v-if="false">
+            <div class="work-list">
+              <div class="work-item" :title="item.abstract" v-for="item in state.portfoliosData"
+              >
+                <img class="work-cover lazy-image" v-bind:data-src="item.cover"
+                     alt="Lazy Loaded Image">
+                <div class="work-info">
+                  <div class="work-info-icon"><i class="iconfont icon-chakan2"></i></div>
+                  <div class="work-info-title">{{ item.title }}</div>
+                  <!--                  <div class="work-info-desc"> {{ item.abstract }}</div>-->
+                </div>
+              </div>
+              <div class="work-item" @click="goToPage('/Portfolio')">
+                <img class="work-cover lazy-image"
+                     v-bind:data-src="`http://www.zhouyi.run:3089/v1/common/files/preview/img/1691545299360.png`">
+                <div class="work-info work-more">
+                  <div class="work-info-icon"><i class="iconfont icon-click"></i></div>
+                  <div class="work-info-title">MORE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!--        留言-->
+        <section class="connect c-mt-40 c-mb-40" id="contact">
+          <ZySectionHeader title="Contact Me" titleNum="08"/>
+          <p class="message-tips">留下你的足迹，让我知道你在这里看过我的留言板。</p>
+          <div class="connect-box">
+            <div class="contact-form">
+              <ZyForm @submitForm="submitMessage" :noRow="true" v-if="state.layout.contact"/>
+            </div>
+            <ul class="contact-basic">
+              <li class="basic-item" v-for="item in state.messageList" :key="item._id">
+                <a-avatar
+                    v-if="item.userInfo[0].length"
+                    :size="40"
+                    :src="item.userInfo[0].avatar"
+                    alt="匿名"/>
+                <a-avatar :size="40" v-else>
+                  <template #icon>
+                    <i style="font-size: 1.6rem" class="iconfont icon-customer-bussinessman"></i>
+                  </template>
+                </a-avatar>
+                <div class="item-r">
+                  <p class="r-t">
+                    <span class="r-t-name" :style="{paddingRight:item.userInfo[0].username==='admin'?0:'10px'}">{{
+                        item.userInfo[0].nickname
+                      }}</span>
+                    <span class="author" v-if="item.userInfo[0].username==='admin'"></span>
+                    <span class="r-t-time">{{
+                        TimeUtils.formatRelativeTime(item.createdAt)
+                      }}</span></p>
+                  <p class="r-desc"> {{ item.content }} </p>
+                </div>
+              </li>
+              <li class="more-msg" @click="goToPage('/contact')">
+                <i class="iconfont icon-click"></i> 查看更多
+              </li>
+            </ul>
+          </div>
+        </section>
+
+
       </section>
     </section>
     <ZyGoTop/>
@@ -155,6 +245,8 @@ import {blog_articlesList} from "../api/modules/api.blog_articles";
 import {anouncementsHomeList, frontendsetups} from "../api/modules/api.common";
 import observeAndAnimate from "../utils/util.viewportObserve";
 import lazyLoadImages from "../utils/util.lazyLoad";
+import {portfoliosList} from "../api/modules/api.portfolios";
+import {messagesList} from "../api/modules/api.messages";
 const router = useRouter()
 const postList = ref([])
 const state = reactive({
@@ -162,7 +254,26 @@ const state = reactive({
   websiteInfo: {},
   theme: {},
   layout: {},
+  aboutMe: '',
   anouncementData:{},
+  portfoliosQuery: {
+    params: {
+      recommended: true,
+      status: true,
+    },
+    pagination: {
+      current: 1,
+      pageSize: 5,
+    },
+  },
+  messageQuery: {
+    pagination: {
+      current: 1,
+      pageSize: 5,
+    },
+  },
+  messageList: [],
+  portfoliosData:[],
   userInfo:{},
   titleAnimation: false,
   textAnimation: false,
@@ -174,6 +285,22 @@ const state = reactive({
   },
 })
 
+// 实现平滑滚动到锚点的方法
+const scrollToSection1 = (id) => {
+  const dom = document.getElementById(id)
+  dom.scrollIntoView({behavior: 'smooth'});
+};
+
+const getPortfolioList = () => {
+  portfoliosList(state.portfoliosQuery).then(res => {
+    state.portfoliosData = res.data.result || []
+  })
+}
+const getMessageList = () => {
+  messagesList(state.messageQuery).then(res => {
+    state.messageList = res.data.result
+  })
+}
 const getFrontendSetups = async () => {
   let res = await frontendsetups({})
   // state.setting.assign(res.data.result[0] || {})
@@ -181,6 +308,8 @@ const getFrontendSetups = async () => {
   state.theme = res.data.result[0].theme || {}
   state.userInfo = res.data.result[0].userInfo || {}
   state.layout = res.data.result[0].layout || {}
+  // 替换高亮词
+  state.aboutMe = replaceTextWithRandomSpan(state.userInfo.aboutMeText, state.userInfo.emphasizeAboutMeText)
 }
 const introAnimationOffset = computed(() => {
   return state.layout.intro ? (state.titleAnimation ? 0 : 50) : 0;
@@ -202,6 +331,8 @@ const getAnouncementRecent = () => {
 
 getAnouncementRecent()
 getFrontendSetups()
+getPortfolioList()
+getMessageList()
 
 blog_articlesList({}).then(res => {
   postList.value = res.data.result || []
@@ -239,7 +370,28 @@ const useHeadOption = computed(() => {
 useHead(useHeadOption)
 
 
-onMounted(() => {
+function replaceTextWithRandomSpan(text, replacements) {
+  // 随机生成 CSS 类名的函数
+  function getRandomClassName() {
+    const classNames = ['me-text-a', 'me-text-b', 'me-text-c', 'me-text-d', 'me-text-e'];
+    const randomIndex = Math.floor(Math.random() * classNames.length);
+    return classNames[randomIndex];
+  }
+
+  // 遍历替换文本
+  let replacedText = text;
+  replacements.forEach((replacement) => {
+    const randomClassName = getRandomClassName();
+    const pattern = new RegExp(replacement, 'g');
+    replacedText = replacedText.replace(
+        pattern,
+        `<span class="me-text ${randomClassName}">${replacement}</span>`
+    );
+  });
+  return replacedText;
+}
+
+onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
 
   observeAndAnimate('.news-block-two', (element) => {
@@ -253,11 +405,61 @@ onMounted(() => {
     element.style.transform = 'translateY(0px)';
   });
 
+
+  await nextTick(() => {
+    // 获取所有带有 me-text 类名的元素
+    const elementsWithMeText = document.getElementsByClassName('me-text');
+    console.log('elementsWithMeText',elementsWithMeText.length)
+    // 定义样式属性对象，包含通用属性
+    const commonStyles = {
+      color: 'transparent',
+      '-webkit-background-clip': 'text',
+      'background-clip': 'text',
+      'font-size': '1.9rem',
+    };
+
+    // 定义不同后缀对应的背景颜色
+    const suffixColors = {
+      a: 'linear-gradient(to right, #24c6dc, #514a9d)',
+      b: 'linear-gradient(to right, #f3cd13, #f35858)',
+      c: 'linear-gradient(to right, #dd5e89, #f7bb97)',
+      d: 'linear-gradient(to right, #3ca55c, #b5ac49)',
+      e: 'linear-gradient(to right, #4cb8c4, #3cd3ad)',
+    };
+
+    // 遍历并操作这些元素
+    for (const element of elementsWithMeText) {
+      // 获取元素的类名
+      const classNames = element.className.split(' ');
+
+      // 遍历元素的类名
+      for (const className of classNames) {
+        // 判断类名是否以 me-text- 开头
+        if (className.startsWith('me-text-')) {
+          // 提取后缀，例如 'a'、'b'、'c' 等
+          const suffix = className.replace('me-text-', '');
+
+          // 设置通用样式属性
+          for (const style in commonStyles) {
+            if (commonStyles.hasOwnProperty(style)) {
+              element.style[style] = commonStyles[style];
+            }
+          }
+
+          // 根据后缀设置背景颜色
+          if (suffixColors[suffix]) {
+            element.style.backgroundImage = suffixColors[suffix];
+          }
+        }
+      }
+    }
+  });
+
   // 懒加载图片
   lazyLoadImages();
 })
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .home-container {
   //font-family: courier new;
   //font-family: "Droid Sans Mono Dotted";
