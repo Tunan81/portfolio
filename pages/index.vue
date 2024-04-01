@@ -233,7 +233,46 @@
           </div>
         </section>
 
+        <footer class="main-footer" ref="layoutFooter" >
+          <div class="main-info">
+            <div class="info-item" v-if="state.userInfo.wx">
+              <div class="item-title">微信</div>
+              <a-image
+                  :width="80"
+                  :src="state.userInfo.wx"
+              />
+            </div>
+            <div class="info-item" v-if="state.userInfo.qq">
+              <div class="item-title">QQ</div>
+              <a-image
+                  :width="90"
+                  :src="state.userInfo.qq"
+              />
+            </div>
+          </div>
 
+          <div class="copyright" v-if="state.layout.copyright">
+            {{ ` Copyright ©${new Date().getFullYear()} by` }}
+            <a target="_blank" class="out-link" :href="state.reference.authorizationUrl">
+              @{{ state.reference.authorization }}</a>. All rights reserved. |
+            <a target="_blank" class="out-link" href="https://beian.miit.gov.cn/#/Integrated/index">
+              {{ state.reference.number }}
+            </a> | <a target="_blank" class="out-link" href="http://admin.zhouyi.run/">
+            主页管理端👈
+          </a>
+          </div>
+          <div class="copyright" v-if="state.layout.copyright">
+            <img src="https://img.shields.io/badge/-Vue3-34495e?logo=vue.js">
+            <img src="https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white">
+            <img src="https://img.shields.io/badge/-Nodejs-green?logo=node.js&logoColor=white">
+            <img src="https://img.shields.io/badge/-Express-red?logo=Express&logoColor=white">
+            <img src="https://img.shields.io/badge/-MongoDB-green?logo=MongoDB&logoColor=white">
+          </div>
+<!--          <div class="copyright">-->
+<!--            <span style="margin-right: 1rem">总访问数：{{ state.viewTotal }}次</span>-->
+<!--            <span>已运行：{{ state.elapsedTime }}</span>-->
+<!--          </div>-->
+        </footer>
       </section>
     </section>
     <ZyGoTop/>
@@ -253,6 +292,7 @@ const state = reactive({
   setting: {},
   websiteInfo: {},
   theme: {},
+  reference: {},
   layout: {},
   aboutMe: '',
   anouncementData:{},
@@ -308,6 +348,7 @@ const getFrontendSetups = async () => {
   state.theme = res.data.result[0].theme || {}
   state.userInfo = res.data.result[0].userInfo || {}
   state.layout = res.data.result[0].layout || {}
+  state.reference = res.data.result[0].reference || {}
   // 替换高亮词
   state.aboutMe = replaceTextWithRandomSpan(state.userInfo.aboutMeText, state.userInfo.emphasizeAboutMeText)
 }
@@ -1427,6 +1468,49 @@ onMounted(async () => {
   &-60 {
     margin-top: 60px;
   }
+}
+.main-footer {
+  border-top: 1px solid #f1f1f1;
+  padding: 1.5rem;
+  background-color: #fff;
+
+  .main-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+
+    .info-item {
+      margin: 5px;
+
+      .item-title {
+        font-size: 1.2rem;
+        font-family: "plantc", "Source Han Serif", serif;
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: .8rem;
+    color: #a8a8a8;
+    letter-spacing: 1px;
+
+    a {
+      color: #a8a8a8;
+    }
+
+    img {
+      margin-right: 5px;
+      margin-top: 5px;
+    }
+  }
+
 }
 
 </style>
