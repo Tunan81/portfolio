@@ -1,8 +1,11 @@
-# 个人博客主页 Nuxt3
+
+# Nuxt3+Js博客主页
 
 #### 介绍
 
 ✨2024最新个人博客主页基于 Vue3、Nuxt3、Javascript、Pinia搭建 。可扩展公司官网、产品展示、在线简历...
+
+[在线地址：http://nuxt.zhouyi.run](http://nuxt.zhouyi.run)
 
 ![输入图片说明](img.png)
 ![输入图片说明](docimage.png)
