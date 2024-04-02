@@ -3,12 +3,12 @@
     <section id='a-box'>
       <div class="profile-img" :style="{opacity:1-state.scrollHeight*0.05}">
         <img class="profile-logo"
-             :src="state.websiteInfo.avatar"
+             src="../assets/img/touxia.jpg"
              alt="logo">
       </div>
-      <h2 class='a-second-title' :style="{opacity:1-state.scrollHeight*0.05}">Hello! I'm
-        {{ state.websiteInfo.name || 'ZHOU YI' }}</h2>
-      <p class='a-second-title-sub' :style="{opacity:1-state.scrollHeight*0.05}">{{ state.websiteInfo.mottoTop }}</p>
+      <h2 class='a-second-title' :style="{opacity:1-state.scrollHeight*0.05}">
+        Hello! I'm XiaHaiKe </h2>
+      <p class='a-second-title-sub' :style="{opacity:1-state.scrollHeight*0.05}">无趣的人想过着有趣的生活</p>
       <canvas></canvas>
     </section>
     <div class="scroll-hint-box" @click="emits('mose','about')">
@@ -19,8 +19,6 @@
 
 
 <script setup>
-
-import {frontendsetups} from "../api/modules/api.common";
 const emits = defineEmits(['mose'])
 const state = reactive({
   scrollHeight: 0,
@@ -31,13 +29,7 @@ const state = reactive({
 const handleScrollHeight = () => {
   state.scrollHeight = window.scrollY * 0.05
 }
-const getFrontendSetups = async () => {
-  let res = await frontendsetups({})
-  state.setting = res.data.result[0] || {}
-  state.websiteInfo = res.data.result[0].websiteInfo || {}
-  state.theme = res.data.result[0].theme || {}
-}
-getFrontendSetups()
+
 onMounted(() => {
   // 始化和获取WebGL上下文:
   const canvas = document.getElementsByTagName('canvas')[0];
@@ -53,7 +45,6 @@ onMounted(() => {
     CURL: 28,
     SPLAT_RADIUS: 0.004
   };
-
 
   let pointers = [];
   let splatStack = [];

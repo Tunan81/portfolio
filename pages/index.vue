@@ -2,7 +2,8 @@
   <div class="home-container" id="home">
     <ZyIntro @mose="scrollToSection1" v-if="state.layout.intro"/>
     <section class="main-warp" id="about">
-      <section class="banner" :style="{backgroundImage:`url(${state.websiteInfo.mainBg})`}"
+      <section class="banner"
+               :style="{backgroundImage:`url(https://www.zhouyi.run:3089/v1/common/files/preview/img/1711116390848.jpg)`}"
                v-if="state.layout.main">
         <div class="banner-content">
           <div class="banner-container">
@@ -11,11 +12,10 @@
               <div class="row-col-right">
                 <div class="banner-text"
                      :style="`transform: translateX(-${introAnimationOffset}%)`">
-                  <p class="text-tip">Hi! I'm {{ state.websiteInfo.name || 'ZHOU YI' }}</p>
+                  <p class="text-tip">Hi! I'm XiaHaiKe</p>
                   <p class="text-main">
-                    {{
-                      state.websiteInfo.motto || "Welcome To My Personal Homepage! Let's Go!"
-                    }}</p>
+                    Welcome To My Personal Homepage! Let's Go!
+                  </p>
                 </div>
               </div>
             </div>
@@ -30,31 +30,22 @@
               <div class="sidebar-card">
                 <div class="sidebar-avatar">
                   <img class="avatar-img lazy-image "
-                       v-if="state.websiteInfo.wxMini"
-                       :src="state.websiteInfo.wxMini">
+                       src="../assets/img/touxia.jpg" alt="wx">
                 </div>
-                <div class="sidebar-name">{{ state.websiteInfo.occupation }}</div>
-                <div class="sidebar-label">{{ state.websiteInfo.occupationEn }}</div>
+                <div class="sidebar-name">{{ '夏海珂' }}</div>
+                <div class="sidebar-label">Hi☺</div>
                 <div class="c-divider c-mb-40"></div>
                 <div class="sidebar-social">
-                  <a :href="state.userInfo.github" target="_blank"><i
+                  <a href="https://github.com/Tunan81" target="_blank"><i
                       class="iconfont icon-github"></i></a>
-                  <a :href="state.userInfo.gitee" target="_blank"><i
+                  <a href="https://gitee.com/xia-haike" target="_blank"><i
                       class="iconfont icon-gitee"></i></a>
                 </div>
                 <div class="c-divider c-mb-40 c-mt-40"></div>
                 <ul class="sidebar-other">
                   <li class="other-item">
                     <span class="item-label">城市：</span>
-                    <span class="item-label-light">{{ state.userInfo.city || '-' }}</span>
-                  </li>
-                  <!--                                    <li class="other-item">-->
-                  <!--                                        <span class="item-label">行业：</span>-->
-                  <!--                                        <span class="item-label-light">setting.userInfo.industry</span>-->
-                  <!--                                    </li>-->
-                  <li class="other-item">
-                    <span class="item-label">交流群：</span>
-                    <span class="item-label-light">{{ state.userInfo.group }}</span>
+                    <span class="item-label-light">重庆</span>
                   </li>
                   <li class="other-item">
                     <span class="item-label" title="码云关注">关注我：</span>
@@ -62,29 +53,9 @@
                       <ZyAvatarList/>
                     </div>
                   </li>
-                  <li class="other-item">
-                    <span class="item-label">微信/QQ：</span>
-                  </li>
-                  <div class="social">
-                    <img width="80"
-                         v-if="state.userInfo.wx"
-                         class="lazy-image"
-                         :src="state.userInfo.wx">
-                    <img width="80"
-                         v-if="state.userInfo.qq"
-                         class="lazy-image"
-                         :src="state.userInfo.qq">
-                  </div>
                 </ul>
                 <div class="c-divider c-mb-40"></div>
-
-                <div class="sidebar-btn"
-                     :style="{backgroundColor:state.theme.primaryColor,borderColor:state.theme.primaryColor}"
-                     @click="scrollToSection1('contact')">
-                  <span>在线留言</span>
-                </div>
                 <span class="downResume" :style="{color:state.theme.primaryColor}"
-                      v-if="state.userInfo.resumeUrl"
                       @click="downloadResume(state.userInfo.resumeUrl)">下载简历</span>
               </div>
             </div>
@@ -100,141 +71,13 @@
                   </div>
                 </div>
               </div>
-              <section class="notice">
-                <div class="notice-line">
-                  <span class="notice-title">📢 公告：</span>
-                  <div class="notice-desc">
-                    <div class="notice-txt" v-if="state.anouncementData.length<2"
-                         v-for="(item,index) in state.anouncementData"
-                         :key="item._id"
-                    > {{ item.title || '暂无通知' }}
-                    </div>
-                    <a-carousel v-else dot-position="right" :dots="false" autoplay>
-                      <div class="notice-txt"
-                           v-for="(item,index) in state.anouncementData"
-                           :key="item._id"
-                      > {{ item.title || '暂无通知' }}
-                      </div>
-                    </a-carousel>
-                  </div>
-                  <div class="notice-his" @click="goToPage('/announcement')">查看所有<i
-                      class="iconfont icon-click"/></div>
-                </div>
-              </section>
-              <section class="brand-tips">
-                <ZySectionHeader title="Tips" titleNum="01"/>
-                <blockquote class="my-story">
-                  <p> ✨基于Nuxt3+JS搭建</p>
-                  <p> ✨只移动部分功能并不是完整的</p>
-                  <img class="wx-logo lazy-image" width="120"
-                       v-if="state.websiteInfo.wxMini"
-                       :src="state.websiteInfo.wxMini">
-                </blockquote>
-              </section>
             </div>
-          </div>
-        </section>
-        <!--        通知-->
-        <section class="notice notice-temp c-mb-40">
-          <div class="notice-line">
-            <span class="notice-title">公告：</span>
-            <div class="notice-desc">{{ state.websiteInfo.notice || '暂无通知' }}
-            </div>
-          </div>
-        </section>
-
-        <!--        关于我-->
-        <section class="about c-mt-40 " v-if="state.layout.aboutMe">
-          <ZySectionHeader title="About me" titleNum="02"/>
-          <section class="animate-me" :key="state.key" v-html="state.aboutMe"></section>
-        </section>
-
-        <!--        服务-->
-        <section class="about c-mt-40 ">
-          <ZySectionHeader title="Service" titleNum="03"/>
-          <ZySkillsPanel/>
-        </section>
-        <!--        精选博文-->
-        <section class="blog  c-mt-40 c-mb-40" id="blog" v-if="state.layout.blog">
-          <ZySectionHeader title="Featured Articles" titleNum="05"/>
-          <ZyArticleSection/>
-        </section>
-
-        <!--        最近评论-->
-        <ZyRecentComments/>
-
-
-        <!--        作品-->
-        <section class="works c-mt-40 c-mb-40" id="work" v-if="state.layout.works">
-          <ZySectionHeader title="My Complete Projects" titleNum="07"/>
-          <ZyWorksSection class="work-se c-mt-40" :dataList="state.portfoliosData"/>
-          <div class="work-box" v-if="false">
-            <div class="work-list">
-              <div class="work-item" :title="item.abstract" v-for="item in state.portfoliosData"
-              >
-                <img class="work-cover lazy-image" v-bind:data-src="item.cover"
-                     alt="Lazy Loaded Image">
-                <div class="work-info">
-                  <div class="work-info-icon"><i class="iconfont icon-chakan2"></i></div>
-                  <div class="work-info-title">{{ item.title }}</div>
-                  <!--                  <div class="work-info-desc"> {{ item.abstract }}</div>-->
-                </div>
-              </div>
-              <div class="work-item" @click="goToPage('/Portfolio')">
-                <img class="work-cover lazy-image"
-                     v-bind:data-src="`http://www.zhouyi.run:3089/v1/common/files/preview/img/1691545299360.png`">
-                <div class="work-info work-more">
-                  <div class="work-info-icon"><i class="iconfont icon-click"></i></div>
-                  <div class="work-info-title">MORE</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-        <!--        留言-->
-        <section class="connect c-mt-40 c-mb-40" id="contact">
-          <ZySectionHeader title="Contact Me" titleNum="08"/>
-          <p class="message-tips">留下你的足迹，让我知道你在这里看过我的留言板。</p>
-          <div class="connect-box">
-            <div class="contact-form">
-              <ZyForm @submitForm="submitMessage" :noRow="true" v-if="state.layout.contact"/>
-            </div>
-            <ul class="contact-basic">
-              <li class="basic-item" v-for="item in state.messageList" :key="item._id">
-                <a-avatar
-                    v-if="item.userInfo[0].length"
-                    :size="40"
-                    :src="item.userInfo[0].avatar"
-                    alt="匿名"/>
-                <a-avatar :size="40" v-else>
-                  <template #icon>
-                    <i style="font-size: 1.6rem" class="iconfont icon-customer-bussinessman"></i>
-                  </template>
-                </a-avatar>
-                <div class="item-r">
-                  <p class="r-t">
-                    <span class="r-t-name" :style="{paddingRight:item.userInfo[0].username==='admin'?0:'10px'}">{{
-                        item.userInfo[0].nickname
-                      }}</span>
-                    <span class="author" v-if="item.userInfo[0].username==='admin'"></span>
-                    <span class="r-t-time">{{
-                        TimeUtils.formatRelativeTime(item.createdAt)
-                      }}</span></p>
-                  <p class="r-desc"> {{ item.content }} </p>
-                </div>
-              </li>
-              <li class="more-msg" @click="goToPage('/contact')">
-                <i class="iconfont icon-click"></i> 查看更多
-              </li>
-            </ul>
           </div>
         </section>
 
         <footer class="main-footer" ref="layoutFooter">
           <div class="main-info">
-            <div class="info-item" v-if="state.userInfo.wx">
+            <div class="info-item">
               <div class="item-title">微信</div>
               <a-image
                   :width="80"
@@ -249,77 +92,43 @@
               />
             </div>
           </div>
-
-          <div class="copyright" v-if="state.layout.copyright">
+          <div class="copyright">
             {{ ` Copyright ©${new Date().getFullYear()} by` }}
-            <a target="_blank" class="out-link" :href="state.reference.authorizationUrl">
-              @{{ state.reference.authorization }}</a>. All rights reserved. |
-            <a target="_blank" class="out-link" href="https://beian.miit.gov.cn/#/Integrated/index">
-              {{ state.reference.number }}
-            </a> | <a target="_blank" class="out-link" href="http://admin.zhouyi.run/">
-            主页管理端👈
-          </a>
+            <a target="_blank" class="out-link">@TuNan</a>. All rights reserved.
           </div>
-          <div class="copyright" v-if="state.layout.copyright">
-            <img src="https://img.shields.io/badge/-Vue3-34495e?logo=vue.js">
-            <img src="https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white">
-            <img src="https://img.shields.io/badge/-Nodejs-green?logo=node.js&logoColor=white">
-            <img src="https://img.shields.io/badge/-Express-red?logo=Express&logoColor=white">
-            <img src="https://img.shields.io/badge/-MongoDB-green?logo=MongoDB&logoColor=white">
+          <div class="copyright">
+            <img src="https://img.shields.io/badge/-Vue3-34495e?logo=vue.js" alt="vue3">
+            <img src="https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white" alt="JavaScript">
+            <img src="https://img.shields.io/badge/-Nodejs-green?logo=node.js&logoColor=white" alt="Nodejs">
           </div>
-          <!--          <div class="copyright">-->
-          <!--            <span style="margin-right: 1rem">总访问数：{{ state.viewTotal }}次</span>-->
-          <!--            <span>已运行：{{ state.elapsedTime }}</span>-->
-          <!--          </div>-->
         </footer>
       </section>
     </section>
     <ZyGoTop/>
-
   </div>
 </template>
 <script setup>
-import {blog_articlesList} from "../api/modules/api.blog_articles";
-import {anouncementsHomeList, frontendsetups, visitorsCreate} from "../api/modules/api.common";
+
 import observeAndAnimate from "../utils/util.viewportObserve";
 import lazyLoadImages from "../utils/util.lazyLoad";
-import {portfoliosList} from "../api/modules/api.portfolios";
-import {messagesCreate, messagesList} from "../api/modules/api.messages";
 
-const router = useRouter()
-const postList = ref([])
 const state = reactive({
-  setting: {},
-  websiteInfo: {},
   theme: {},
-  reference: {},
-  layout: {},
-  aboutMe: '',
-  anouncementData: {},
-  portfoliosQuery: {
-    params: {
-      recommended: true,
-      status: true,
-    },
-    pagination: {
-      current: 1,
-      pageSize: 5,
-    },
+  layout: {
+    "intro": true,
+    "main": true,
+    "aboutMe": true,
+    "resume": false,
+    "works": true,
+    "blog": true,
+    "contact": true,
+    "copyright": true
   },
-  messageQuery: {
-    pagination: {
-      current: 1,
-      pageSize: 5,
-    },
-  },
-  messageList: [],
-  portfoliosData: [],
   userInfo: {},
   titleAnimation: false,
   textAnimation: false,
   scrollHeight: 0,
   bannerWidth: 100,
-  key: 1,
   show: {
     work: false
   },
@@ -331,27 +140,6 @@ const scrollToSection1 = (id) => {
   dom.scrollIntoView({behavior: 'smooth'});
 };
 
-const getPortfolioList = () => {
-  portfoliosList(state.portfoliosQuery).then(res => {
-    state.portfoliosData = res.data.result || []
-  })
-}
-const getMessageList = () => {
-  messagesList(state.messageQuery).then(res => {
-    state.messageList = res.data.result
-  })
-}
-const getFrontendSetups = async () => {
-  let res = await frontendsetups({})
-  // state.setting.assign(res.data.result[0] || {})
-  state.websiteInfo = res.data.result[0].websiteInfo || {}
-  state.theme = res.data.result[0].theme || {}
-  state.userInfo = res.data.result[0].userInfo || {}
-  state.layout = res.data.result[0].layout || {}
-  state.reference = res.data.result[0].reference || {}
-  // 替换高亮词
-  state.aboutMe = replaceTextWithRandomSpan(state.userInfo.aboutMeText, state.userInfo.emphasizeAboutMeText)
-}
 const introAnimationOffset = computed(() => {
   return state.layout.intro ? (state.titleAnimation ? 0 : 50) : 0;
 })
@@ -359,98 +147,35 @@ const introLeftAnimationOffset = computed(() => {
   return state.layout.intro ? (state.titleAnimation ? 40 : 0) : 40;
 })
 
-const getAnouncementRecent = () => {
-  anouncementsHomeList({
-    sort: {
-      columnKey: "createdAt",
-      order: "descend" //降序（新的在前面）
-    }
-  }).then(res => {
-    state.anouncementData = res.data.result || []
-  })
-}
-import {Modal, message, notification} from 'ant-design-vue';
-
-const submitMessage = (form) => {
-  message.warning('留言暂未开放');
-  // messagesCreate(form).then(res => {
-  //   if (res.status) {
-  //     let info = {
-  //       name: form.nickname,
-  //       email: form.email,
-  //       website: form.website
-  //     }
-  //     localStorage.setItem('ZY-CLIENT-USERINFO', JSON.stringify(info))
-  //     getMessageList()
-  //   }
-  // })
-}
-
-getAnouncementRecent()
-getFrontendSetups()
-getPortfolioList()
-getMessageList()
-
-blog_articlesList({}).then(res => {
-  postList.value = res.data.result || []
-})
-const goPage = (path) => {
-  router.push({path})
-}
-
-const handleScroll = (e) => {
+const handleScroll = () => {
   // 滚动事件处理逻辑
   if (state.layout.intro) {
     state.titleAnimation = window.scrollY - window.innerHeight / 2.2 > 0;
   }
 };
+
 /**
  * SEO
  */
 const useHeadOption = computed(() => {
   return {
-    title: "ZHOUYI主页",
+    title: "夏海珂的主页",
     meta: [
       {
         hid: 'description',
         name: 'description',
-        content: 'ZHOUYI主页',
+        content: 'XiaHaiKe主页',
       },
       {
         hid: 'keywords',
         name: 'keywords',
-        content: 'ZHOUYI主页'
+        content: 'XiaHaiKe主页'
       },
     ]
   }
 })
+
 useHead(useHeadOption)
-// 记录访客
-const recordVisitor = () => {
-  visitorsCreate({name:'-', page: 'NUXT3/主页'})
-}
-recordVisitor()
-
-function replaceTextWithRandomSpan(text, replacements) {
-  // 随机生成 CSS 类名的函数
-  function getRandomClassName() {
-    const classNames = ['me-text-a', 'me-text-b', 'me-text-c', 'me-text-d', 'me-text-e'];
-    const randomIndex = Math.floor(Math.random() * classNames.length);
-    return classNames[randomIndex];
-  }
-
-  // 遍历替换文本
-  let replacedText = text;
-  replacements.forEach((replacement) => {
-    const randomClassName = getRandomClassName();
-    const pattern = new RegExp(replacement, 'g');
-    replacedText = replacedText.replace(
-        pattern,
-        `<span class="me-text ${randomClassName}">${replacement}</span>`
-    );
-  });
-  return replacedText;
-}
 
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);

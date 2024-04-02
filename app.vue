@@ -1,22 +1,21 @@
 <template>
-  <main class="zy-layout-all-group" id="zy-layout-all-group" ref="layoutGroup" >
+  <main class="zy-layout-all-group" id="zy-layout-all-group" ref="layoutGroup">
     <!-- 顶栏-->
-<!--    <section class="zy-theme-header"-->
-<!--             v-if="router.currentRoute.name!=='index'"-->
-<!--             :style="{top:showHeader?0:'-100%'}">-->
-<!--      <div class="header-logo">-->
-<!--        <span class="logo-text" @click="goIndex">ZHOU YI</span>-->
-<!--      </div>-->
-<!--      <div class="header-right">-->
-<!--        <ZyMenuList/>-->
-<!--      </div>-->
-
-<!--    </section>-->
+    <!--    <section class="zy-theme-header"-->
+    <!--             v-if="router.currentRoute.name!=='index'"-->
+    <!--             :style="{top:showHeader?0:'-100%'}">-->
+    <!--      <div class="header-logo">-->
+    <!--        <span class="logo-text" @click="goIndex">ZHOU YI</span>-->
+    <!--      </div>-->
+    <!--      <div class="header-right">-->
+    <!--        <ZyMenuList/>-->
+    <!--      </div>-->
+    <!--    </section>-->
     <section class="zy-theme-container-main"
              id="zy-theme-container-main"
     >
       <NuxtLayout>
-        <NuxtPage />
+        <NuxtPage/>
       </NuxtLayout>
     </section>
   </main>
@@ -35,9 +34,9 @@ const state = reactive({
 })
 
 watch(router.currentRoute.value, (e) => {
-  console.log('9*',router.currentRoute.value)
+  console.log('9*', router.currentRoute.value)
   state.show.menuList = e.path === '/'
-  console.log('123465',state.show.menuList)
+  console.log('123465', state.show.menuList)
 })
 
 const goIndex = () => {
@@ -52,7 +51,7 @@ const watchScroll = () => {
   state.lastScrollTop = scrollTop
 }
 
-const initCursor=()=>{
+const initCursor = () => {
   var CURSOR;
 
   Math.lerp = (a, b, n) => (1 - n) * a + n * b;
