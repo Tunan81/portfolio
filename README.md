@@ -4,6 +4,11 @@
 
 ✨2024最新个人博客主页基于 Vue3、Nuxt3、Javascript、Pinia搭建 。可扩展公司官网、产品展示、在线简历...
 
+![输入图片说明](docimage.png)
+
+
+
+
 #### 环境
 
 ```shell
