@@ -11,8 +11,8 @@
           <p class="info-title-sub ban-bred">
           <span @click="goToPage('/')" title="回到主页" class="iconfont icon-shouye">
           </span>
-            <span @click="goToPage('/archive')" title="博文归档" class="iconfont icon-guanlizhuanjiawenzhang"></span>
-            <span @click="goToPage('/contact')" title="留言" class="iconfont icon-pinglun"></span>
+<!--            <span @click="goToPage('/archive')" title="博文归档" class="iconfont icon-guanlizhuanjiawenzhang"></span>-->
+<!--            <span @click="goToPage('/contact')" title="留言" class="iconfont icon-pinglun"></span>-->
             <span @click="openFullscreen" title="全屏阅读更舒适" class="iconfont icon-quanping1">
           </span>
           </p>

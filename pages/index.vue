@@ -1,7 +1,6 @@
 <template>
-  <div class="home-container">
-    <!--    {{page.createdAt}}-->
-    <ZyIntro/>
+  <div class="home-container" id="home">
+    <ZyIntro @mose="scrollToSection1" v-if="state.layout.intro"/>
     <section class="main-warp" id="about">
       <section class="banner" :style="{backgroundImage:`url(${state.websiteInfo.mainBg})`}"
                v-if="state.layout.main">
@@ -125,8 +124,8 @@
               <section class="brand-tips">
                 <ZySectionHeader title="Tips" titleNum="01"/>
                 <blockquote class="my-story">
-                  <p> 无趣的人想过着有趣的生活。</p>
-                  <p> 每一步都是奇迹，每一天都是新的起点。</p>
+                  <p> ✨基于Nuxt3+JS搭建</p>
+                  <p> ✨只移动部分功能并不是完整的</p>
                   <img class="wx-logo lazy-image" width="120"
                        v-if="state.websiteInfo.wxMini"
                        :src="state.websiteInfo.wxMini">
@@ -233,7 +232,7 @@
           </div>
         </section>
 
-        <footer class="main-footer" ref="layoutFooter" >
+        <footer class="main-footer" ref="layoutFooter">
           <div class="main-info">
             <div class="info-item" v-if="state.userInfo.wx">
               <div class="item-title">微信</div>
@@ -268,10 +267,10 @@
             <img src="https://img.shields.io/badge/-Express-red?logo=Express&logoColor=white">
             <img src="https://img.shields.io/badge/-MongoDB-green?logo=MongoDB&logoColor=white">
           </div>
-<!--          <div class="copyright">-->
-<!--            <span style="margin-right: 1rem">总访问数：{{ state.viewTotal }}次</span>-->
-<!--            <span>已运行：{{ state.elapsedTime }}</span>-->
-<!--          </div>-->
+          <!--          <div class="copyright">-->
+          <!--            <span style="margin-right: 1rem">总访问数：{{ state.viewTotal }}次</span>-->
+          <!--            <span>已运行：{{ state.elapsedTime }}</span>-->
+          <!--          </div>-->
         </footer>
       </section>
     </section>
@@ -281,11 +280,12 @@
 </template>
 <script setup>
 import {blog_articlesList} from "../api/modules/api.blog_articles";
-import {anouncementsHomeList, frontendsetups} from "../api/modules/api.common";
+import {anouncementsHomeList, frontendsetups, visitorsCreate} from "../api/modules/api.common";
 import observeAndAnimate from "../utils/util.viewportObserve";
 import lazyLoadImages from "../utils/util.lazyLoad";
 import {portfoliosList} from "../api/modules/api.portfolios";
-import {messagesList} from "../api/modules/api.messages";
+import {messagesCreate, messagesList} from "../api/modules/api.messages";
+
 const router = useRouter()
 const postList = ref([])
 const state = reactive({
@@ -295,7 +295,7 @@ const state = reactive({
   reference: {},
   layout: {},
   aboutMe: '',
-  anouncementData:{},
+  anouncementData: {},
   portfoliosQuery: {
     params: {
       recommended: true,
@@ -313,8 +313,8 @@ const state = reactive({
     },
   },
   messageList: [],
-  portfoliosData:[],
-  userInfo:{},
+  portfoliosData: [],
+  userInfo: {},
   titleAnimation: false,
   textAnimation: false,
   scrollHeight: 0,
@@ -369,6 +369,22 @@ const getAnouncementRecent = () => {
     state.anouncementData = res.data.result || []
   })
 }
+import {Modal, message, notification} from 'ant-design-vue';
+
+const submitMessage = (form) => {
+  message.warning('留言暂未开放');
+  // messagesCreate(form).then(res => {
+  //   if (res.status) {
+  //     let info = {
+  //       name: form.nickname,
+  //       email: form.email,
+  //       website: form.website
+  //     }
+  //     localStorage.setItem('ZY-CLIENT-USERINFO', JSON.stringify(info))
+  //     getMessageList()
+  //   }
+  // })
+}
 
 getAnouncementRecent()
 getFrontendSetups()
@@ -398,7 +414,7 @@ const useHeadOption = computed(() => {
       {
         hid: 'description',
         name: 'description',
-        content:'ZHOUYI主页' ,
+        content: 'ZHOUYI主页',
       },
       {
         hid: 'keywords',
@@ -409,7 +425,11 @@ const useHeadOption = computed(() => {
   }
 })
 useHead(useHeadOption)
-
+// 记录访客
+const recordVisitor = () => {
+  visitorsCreate({name:'-', page: 'NUXT3/主页'})
+}
+recordVisitor()
 
 function replaceTextWithRandomSpan(text, replacements) {
   // 随机生成 CSS 类名的函数
@@ -450,7 +470,7 @@ onMounted(async () => {
   await nextTick(() => {
     // 获取所有带有 me-text 类名的元素
     const elementsWithMeText = document.getElementsByClassName('me-text');
-    console.log('elementsWithMeText',elementsWithMeText.length)
+    console.log('elementsWithMeText', elementsWithMeText.length)
     // 定义样式属性对象，包含通用属性
     const commonStyles = {
       color: 'transparent',
@@ -534,6 +554,7 @@ onMounted(async () => {
           width: 80px;
           font-weight: bold;
         }
+
         .notice-his {
           width: 80px;
           text-align: center;
@@ -599,7 +620,7 @@ onMounted(async () => {
       border-radius: 0 0 20px 20px;
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
       transition: all .4s linear;
-      background-image: url(http://www.zhouyi.run:3089/v1/common/files/preview/img/1691567436630.png);
+      background-image: url(https://www.zhouyi.run/assets/bg-map-9bef45bb.png);
       background-position: center;
       background-attachment: fixed;
       background-size: cover;
@@ -892,7 +913,7 @@ onMounted(async () => {
               font-style: italic;
               font-size: 16px;
               font-weight: 500;
-              background-image: url(../../assets/img/bg-map.png);
+              background-image: url(../assets/img/bg-map.png);
               background-position: center center;
 
               .wx-logo {
@@ -1469,6 +1490,7 @@ onMounted(async () => {
     margin-top: 60px;
   }
 }
+
 .main-footer {
   border-top: 1px solid #f1f1f1;
   padding: 1.5rem;

@@ -6,14 +6,14 @@
         <p class="info-title">博文精选</p>
         <p class="info-title-sub">有趣的人记录有趣的事。 </p>
         <p class="info-title-sub ban-bred">
-          <span @click="goToPage('/blog')" title="发现更多有趣的文章"> 发现更多 <i class="iconfont icon-shujuzhongxin"></i></span>
+          <span @click="goToPage('/blogs')" title="发现更多有趣的文章"> 发现更多 <i class="iconfont icon-shujuzhongxin"></i></span>
         </p>
       </section>
     </aside>
     <section class="blog-right">
       <section class="blog-list">
         <article class="blog-item" v-for="(post,index) in state.postList" :key="index"
-                 @click="goToPage('/PostDetail/'+post._id,{title:post.title})">
+                 @click="goToPage('/posts/'+post._id,{title:post.title})">
           <header class="blog-header" :style="{width:!post.cover&&'100%'}">
             <h2>{{ post.title }}</h2>
             <p class="abstract">{{ post.abstract }}</p>
@@ -45,8 +45,9 @@
 import lazyLoadImages from "../utils/util.lazyLoad";
 import {blog_articlesList} from "../api/modules/api.blog_articles";
 
+const router = useRouter()
 const backgroundPosition = ref('50% 0');
-const backgroundImg = ref('url(http://www.zhouyi.run:3089/v1/common/files/preview/img/1691571900783.png)');
+const backgroundImg = ref('url(http://www.zhouyi.run:3089/v1/common/files/preview/img/03.jpg)');
 const handleScroll = (e) => {
   const offsetY = window.scrollY;
   backgroundPosition.value = `50% ${offsetY * 0.02}%`;
@@ -57,6 +58,10 @@ const totalImages = 9;
 function updateBackgroundImage() {
   backgroundImg.value = `url(http://www.zhouyi.run:3089/v1/common/files/preview/img/${getImageName(currentImageIndex)}.jpg)`;
   currentImageIndex = (currentImageIndex % totalImages) + 1;
+}
+
+const goToPage = (path) => {
+  router.push({path})
 }
 
 function getImageName(index) {
@@ -195,6 +200,7 @@ onBeforeUnmount(() => {
           margin-bottom: 10px;
           //font-weight: bold;
         }
+
         .abstract {
           line-height: 1.7;
         }

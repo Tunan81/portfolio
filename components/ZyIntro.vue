@@ -21,7 +21,7 @@
 <script setup>
 
 import {frontendsetups} from "../api/modules/api.common";
-
+const emits = defineEmits(['mose'])
 const state = reactive({
   scrollHeight: 0,
   setting: {},
@@ -33,7 +33,6 @@ const handleScrollHeight = () => {
 }
 const getFrontendSetups = async () => {
   let res = await frontendsetups({})
-  console.log(res)
   state.setting = res.data.result[0] || {}
   state.websiteInfo = res.data.result[0].websiteInfo || {}
   state.theme = res.data.result[0].theme || {}

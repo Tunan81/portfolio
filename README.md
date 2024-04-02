@@ -35,5 +35,5 @@ npm create vite@latest
 2. [Nuxt3](https://nuxt.com.cn/docs/getting-started/installation)
 3. [Pinia](https://pinia.vuejs.org/zh/introduction.html)
 3. [Vite](https://cn.vitejs.dev/guide/)
-4. [Quasar UI](https://www.quasar-cn.cn/vue-components/ajax-bar)
+
 
