@@ -26,6 +26,13 @@
  
 ```
 
+#### 启动命令
+
+```shell
+ npm i
+ npm run dev
+```
+
 #### vite搭建Nuxt3项目安装教程
 
 ```shell
