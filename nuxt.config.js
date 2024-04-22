@@ -109,5 +109,8 @@ export default defineNuxtConfig({
             ]
         },
         pageTransition: { name: 'page', mode: 'out-in' },
+    },
+    generate:{
+        dir: '/docs',
     }
 })
